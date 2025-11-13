@@ -5,7 +5,7 @@ from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from .models import Warga, Pengaduan
 from .forms import WargaForm, PengaduanForm
 from rest_framework.generics import ListAPIView, RetrieveAPIView
-from .serializers import WargaSerializer
+from .serializers import WargaSerializer, PengaduanSerializer
 
 class WargaListView(ListView):
     model = Warga
@@ -46,3 +46,7 @@ class WargaListAPIView(ListAPIView):
 class WargaDetailAPIView(RetrieveAPIView):
     queryset = Warga.objects.all()          
     serializer_class = WargaSerializer
+
+class PengaduanDetailAPIView(ListAPIView):
+    queryset = Pengaduan.objects.all()          
+    serializer_class = PengaduanSerializer
