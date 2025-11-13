@@ -4,8 +4,9 @@ from django.views.generic import ListView
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from .models import Warga, Pengaduan
 from .forms import WargaForm, PengaduanForm
-from rest_framework.generics import ListAPIView, RetrieveAPIView
+# from rest_framework.generics import ListAPIView, RetrieveAPIView
 from .serializers import WargaSerializer, PengaduanSerializer
+from rest_framework import viewsets
 
 class WargaListView(ListView):
     model = Warga
@@ -39,14 +40,25 @@ class WargaDeleteView(DeleteView):
     template_name = 'warga/warga_confirm_delete.html'
     success_url = reverse_lazy('warga-list')
 
-class WargaListAPIView(ListAPIView):
-    queryset = Warga.objects.all()
+# class WargaListAPIView(ListAPIView):
+#     queryset = Warga.objects.all()
+#     serializer_class = WargaSerializer
+
+# class WargaDetailAPIView(RetrieveAPIView):
+#     queryset = Warga.objects.all()          
+#     serializer_class = WargaSerializer
+
+# class PengaduanDetailAPIView(ListAPIView):
+#     queryset = Pengaduan.objects.all()          
+#     serializer_class = PengaduanSerializer
+
+class WargaViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Warga.objects.all().order_by('-tanggal_registrasi')
     serializer_class = WargaSerializer
 
-class WargaDetailAPIView(RetrieveAPIView):
-    queryset = Warga.objects.all()          
-    serializer_class = WargaSerializer
-
-class PengaduanDetailAPIView(ListAPIView):
-    queryset = Pengaduan.objects.all()          
+class PengaduanViewSet(viewsets.ModelViewSet):
+    queryset = Pengaduan.objects.all()
     serializer_class = PengaduanSerializer
