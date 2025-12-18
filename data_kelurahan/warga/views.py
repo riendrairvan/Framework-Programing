@@ -60,7 +60,7 @@ class WargaViewSet(viewsets.ModelViewSet):
     """
     queryset = Warga.objects.all().order_by('-tanggal_registrasi')
     serializer_class = WargaSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAdminUser]
 
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['nama_lengkap', 'nik', 'alamat']
